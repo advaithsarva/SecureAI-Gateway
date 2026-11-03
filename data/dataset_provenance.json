@@ -1,0 +1,36 @@
+{
+  "is_real_world_dataset": true,
+  "synthetic_cases_count": 0,
+  "total_evaluation_cases": 450,
+  "breakdown": {
+    "benign_general": 100,
+    "difficult_benign": 50,
+    "direct_prompt_injection": 100,
+    "jailbreak_override": 100,
+    "sensitive_data": 100
+  },
+  "disjoint_training_corpus_size": 2175,
+  "train_eval_overlap_count": 0,
+  "huggingface_sources": [
+    {
+      "dataset": "deepset/prompt-injections",
+      "url": "https://huggingface.co/datasets/deepset/prompt-injections",
+      "role": "Direct prompt injection & benign evaluation/training splits"
+    },
+    {
+      "dataset": "jackhhao/jailbreak-classification",
+      "url": "https://huggingface.co/datasets/jackhhao/jailbreak-classification",
+      "role": "Real in-the-wild jailbreak & benign roleplay evaluation/training splits"
+    },
+    {
+      "dataset": "Lakera/gandalf_ignore_instructions",
+      "url": "https://huggingface.co/datasets/Lakera/gandalf_ignore_instructions",
+      "role": "Adversarial prompt-injection evaluation/training samples"
+    },
+    {
+      "dataset": "ai4privacy/pii-masking-200k",
+      "url": "https://huggingface.co/datasets/ai4privacy/pii-masking-200k",
+      "role": "Real English PII benchmark samples with annotated EMAIL, PHONENUMBER, IPV4, SSN, CREDITCARDNUMBER, and PASSWORD spans"
+    }
+  ]
+}
