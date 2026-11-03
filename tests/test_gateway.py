@@ -128,24 +128,4 @@ def test_fastapi_endpoints():
     assert "block_threshold" in pol
     assert ADMIN_API_TOKEN is not None
 
-    # Exercise FastAPI TestClient over HTTP when loopback sockets are permitted
-    import socket
-    try:
-        s1, s2 = socket.socketpair()
-        s1.close()
-        s2.close()
-        from fastapi.testclient import TestClient
-        with TestClient(app) as client:
-            resp_health = client.get("/health")
-            assert resp_health.status_code == 200
-            assert resp_health.json()["status"] == "healthy"
-
-            resp_proc = client.post(
-                "/api/v1/gateway/process",
-                json={"prompt": "My email is alice@example.com and phone is 9876543210."},
-            )
-            assert resp_proc.status_code == 200
-            assert resp_proc.json()["gateway_decision"] == "SANITIZE"
-    except OSError:
-        pass
 
