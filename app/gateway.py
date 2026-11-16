@@ -148,8 +148,8 @@ def process_gateway_request(
     if decision == "BLOCK":
         model_provider = "none (blocked_at_input)"
         final_ai_response = (
-            f"[SecureAI Gateway BLOCKED] Request halted by security policy. "
-            f"Risk Score: {risk_score}/100 ({risk_level}). Reason: {decision_reason}"
+            f"[Gateway Blocked] Security policy blocked request. "
+            f"Risk score: {risk_score}/100 ({risk_level}). Reason: {decision_reason}"
         )
         output_status = "SKIPPED"
         out_res = None

@@ -117,45 +117,45 @@ class RiskAssessmentEngine:
         if p_res.detected and combined_score >= block_threshold:
             decision = "BLOCK"
             decision_reason = (
-                f"Blocked due to prompt security violation ({p_res.risk_category}). "
-                f"Risk score {combined_score}/100 ({risk_level}) exceeds block threshold ({block_threshold}). "
+                f"Blocked: prompt security violation ({p_res.risk_category}). "
+                f"Risk score {combined_score}/100 ({risk_level}) exceeds threshold ({block_threshold}). "
                 f"{p_res.explanation}"
             )
         elif priv_res.detected and block_on_critical_secrets and combined_score >= block_threshold:
             decision = "BLOCK"
             decision_reason = (
-                f"Blocked under strict secret policy ({priv_res.risk_category}). "
-                f"Risk score {combined_score}/100 ({risk_level}) exceeds block threshold ({block_threshold}). "
+                f"Blocked: secret policy violation ({priv_res.risk_category}). "
+                f"Risk score {combined_score}/100 ({risk_level}) exceeds threshold ({block_threshold}). "
                 f"{priv_res.explanation}"
             )
         elif priv_res.detected and priv_res.sanitized_text != prompt:
             decision = "SANITIZE"
             decision_reason = (
-                f"Sanitized sensitive information prior to model invocation. "
+                f"Redacted sensitive data before model dispatch. "
                 f"Risk score {combined_score}/100 ({risk_level}). {priv_res.explanation}"
             )
         elif combined_score >= block_threshold:
             decision = "BLOCK"
             decision_reason = (
-                f"Blocked because risk score {combined_score}/100 ({risk_level}) "
-                f"exceeds configured block threshold ({block_threshold})."
+                f"Blocked: risk score {combined_score}/100 ({risk_level}) "
+                f"exceeds threshold ({block_threshold})."
             )
         elif combined_score >= sanitize_threshold:
             decision = "SANITIZE"
             decision_reason = (
-                f"Sanitized/flagged as Medium Risk ({combined_score}/100 >= {sanitize_threshold})."
+                f"Sanitized: risk score {combined_score}/100 ({risk_level}) reaches sanitize threshold ({sanitize_threshold})."
             )
         else:
             decision = "ALLOW"
             if p_res.benign_context_dampened:
                 decision_reason = (
-                    f"Allowed (Risk Score {combined_score}/100 - {risk_level}): "
+                    f"Allowed (Risk score {combined_score}/100, {risk_level}): "
                     f"{p_res.explanation}"
                 )
             else:
                 decision_reason = (
-                    f"Allowed (Risk Score {combined_score}/100 - {risk_level}): "
-                    "No policy violations or sensitive data exposures detected."
+                    f"Allowed (Risk score {combined_score}/100, {risk_level}): "
+                    "Found no policy violations or exposed data."
                 )
 
         return RiskAssessmentResult(

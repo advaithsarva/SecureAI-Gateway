@@ -117,8 +117,8 @@ class MockAIModelAdapter:
                 "success": True,
                 "provider": "mock-ai-v1",
                 "response": (
-                    "Processed your sanitized request safely without exposing raw personal or secret data. "
-                    f"Sanitized context received: \"{prompt}\""
+                    "Processed sanitized request without exposing personal or secret data. "
+                    f"Sanitized context: \"{prompt}\""
                 ),
                 "error": None,
             }
@@ -141,8 +141,8 @@ class MockAIModelAdapter:
             "success": True,
             "provider": "mock-ai-v1",
             "response": (
-                "SecureAI Mock Assistant Response: Your request has been processed safely. "
-                f"Summary of topic ({len(prompt.split())} words): {prompt[:110]}"
+                "Assistant Response: processed safely. "
+                f"Topic summary ({len(prompt.split())} words): {prompt[:110]}"
             ),
             "error": None,
         }
